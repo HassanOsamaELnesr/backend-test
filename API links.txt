@@ -1,0 +1,45 @@
+-User Routes (Authentication):
+1.Login:
+  POST /Auth/login
+  Body: { email, password }
+  Description: Logs in the user and returns a JWT token for authentication.
+
+-Admin Routes (Product Management):
+1.Add Product:
+  POST /Products/add
+  Authorization: Bearer Token (Admin role required)
+  Body: { name, category, price, quantity }
+  Description: Adds a new product to the inventory.
+
+2.List All Products:
+  GET /Products/listAll
+  Authorization: Bearer Token (Admin role required)
+  Description: Retrieves a list of all products.
+
+3.Get Product by ID:
+  GET /Products/getOne/:id
+  Authorization: Bearer Token (Admin role required)
+  Description: Retrieves the details of a specific product by its ID.
+
+4.Update Product by ID:
+  PUT /Products/update/:id
+  Authorization: Bearer Token (Admin role required)
+  Body: { name, category, price, quantity }
+  Description: Updates an existing product's details by ID.
+
+5.Delete Product by ID:
+  DELETE /Products/delete/:id
+  Authorization: Bearer Token (Admin role required)
+  Description: Deletes a product by its ID.
+
+6.Get Products by Price Range (Challenge 2):
+  GET /Products/Query
+  Authorization: Bearer Token (Admin role required)
+  Query Parameters: { page }
+  Description: Retrieves products within a specific price range, sorted by price.
+
+7.Get Products by Category:
+  GET /Products/getByCategory/:category
+  Authorization: Bearer Token (Admin role required)
+  Query Parameters: { page }
+  Description: Retrieves products in a specific category, sorted by price.

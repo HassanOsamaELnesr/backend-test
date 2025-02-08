@@ -28,6 +28,7 @@ exports.getProducts=async(request,response)=>{
         response.status(500).json({ error: error.message || 'Internal server error' });
     }
 
+
 }
 
 exports.getOneProduct=async(request,response)=>{
@@ -77,4 +78,37 @@ exports.deleteProduct = async (request, response) => {
         response.status(500).json({ error: error.message || 'Internal server error' });
     }
 
+}
+
+
+//challenge 2
+
+exports.getProductsQuery=async(request,response)=>{
+    try{
+     const page = parseInt(request.query.page) || 1;
+        const Products=await AdminModel.getProductsQuery(page)
+        response.status(200).json(Products);
+    }catch(error){
+        response.status(500).json({ error: error.message || 'Internal server error' });
+    }
+
+
+}
+
+
+
+exports.getProductsByCategory = async(req,res)=>{
+    const {category} =req.params
+    const {page}= req.query
+    try {
+        const products = await AdminModel.getProductsByCategory(category, page);
+        if (products.length === 0) {
+            return res.status(404).json({ message: 'No products found for this category' });
+        }
+
+        res.status(200).json({ products });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: error.message || 'Internal server error' });
+    }
 }

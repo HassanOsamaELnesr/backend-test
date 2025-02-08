@@ -1,44 +1,44 @@
 const jwt = require("jsonwebtoken");
 
-const jwtSecret = process.env.JWT_SECRET; // Use the same secret key
+const jwtSecret = process.env.JWT_SECRET;
 
-// Middleware to verify JWT token
+
 exports.verifyToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
-   // console.log("Auth Header:", authHeader);  // Debugging: Log the header
+    // console.log("Auth Header:", authHeader); 
 
     if (!authHeader) {
         return res.status(401).json({ message: "Token missing" });
     }
 
     const token = authHeader.split(" ")[1];
-   // console.log("Extracted Token:", token);  // Debugging: Log the token
+    // console.log("Extracted Token:", token); 
 
     if (!token) {
         return res.status(401).json({ message: "Unauthorized, token not found" });
     }
 
-    // Verify the token using the jwtSecret
     console.log(token)
     jwt.verify(token, jwtSecret, (err, decoded) => {
         if (err) {
-            console.error("JWT Verification Error:", err);  // Log the error for debugging
+            console.error("JWT Verification Error:", err);
             return res.status(401).json({ message: "Invalid or malformed token" });
         }
-        else{
-    
-        console.log("Decoded Token Data:", decoded);  // Log decoded token if verification is successful
-        req.user = decoded;  // Attach decoded token data to the request
-        next(); } // Proceed to the next middleware or route handler
+        else {
+
+            console.log("Decoded Token Data:", decoded);
+            req.user = decoded;
+            next();
+        }
     });
-    
-    
+
+
 };
 
-// Middleware to check the user role
+
 exports.checkRole = (role) => {
     return (req, res, next) => {
-        console.log("User Role from Token:", req.user);  // Log user details for debugging
+        console.log("User Role from Token:", req.user);
 
         if (!req.user || !req.user.role) {
             return res.status(403).json({
@@ -48,7 +48,7 @@ exports.checkRole = (role) => {
         }
 
         if (req.user.role === role) {
-            next();  // User has the required role, proceed
+            next();
         } else {
             return res.status(403).json({
                 status: "error",

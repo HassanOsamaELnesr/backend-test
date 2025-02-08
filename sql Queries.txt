@@ -1,0 +1,9 @@
+SELECT * 
+FROM products
+WHERE price BETWEEN 50 AND 200
+ORDER BY price ASC
+LIMIT 10 OFFSET 10 * ($page - 1);
+
+CREATE INDEX idx_price ON products (price);
+
+CREATE INDEX idx_category ON products (category);

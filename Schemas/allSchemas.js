@@ -35,7 +35,7 @@ exports.productsSchema = checkSchema({
       errorMessage: "Category should be a string",
     },
     price: {
-      isFloat: { options: { gt: 0 } },
+      isInt: { options: { gt: 0 } },
       errorMessage: "Price should be a positive number",
     },
     quantity: {

@@ -11,4 +11,8 @@ adminRouter.get("/getOne/:id",middleWare.verifyToken, middleWare.checkRole('Admi
 adminRouter.put("/update/:id", middleWare.verifyToken, middleWare.checkRole('Admin'), schema.productsSchema ,AdminController.updateProduct)
 adminRouter.delete("/delete/:id",middleWare.verifyToken, middleWare.checkRole('Admin'),AdminController.deleteProduct)
 
+//challenge 2
+adminRouter.get("/Query",middleWare.verifyToken, middleWare.checkRole('Admin'),AdminController.getProductsQuery)
+adminRouter.get("/getByCategory/:category",middleWare.verifyToken, middleWare.checkRole('Admin'),AdminController.getProductsByCategory)
+
 module.exports=adminRouter
